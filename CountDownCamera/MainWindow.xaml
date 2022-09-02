@@ -1,0 +1,61 @@
+﻿<Window x:Class="CountDownCamera.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:wfi ="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+        xmlns:airspace="clr-namespace:Microsoft.DwayneNeed.Interop;assembly=Microsoft.DwayneNeed"
+        xmlns:aforge="clr-namespace:AForge.Controls;assembly=AForge.Controls"
+        xmlns:WPFMediaKit="clr-namespace:WPFMediaKit.DirectShow.Controls;assembly=WPFMediaKit"
+        xmlns:local="clr-namespace:CountDownCamera"
+        mc:Ignorable="d"
+        Title="團體拍拍樂" Height="820" Width="1300" MinHeight="550" MinWidth="840" ResizeMode="CanResizeWithGrip" Loaded="Window_Loaded"
+        WindowStartupLocation="CenterOwner" Closing="Window_Closing" PreviewKeyDown="Window_PreviewKeyDown">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Component.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid VerticalAlignment="Top" Grid.Row="0">
+            <WPFMediaKit:VideoCaptureElement x:Name="vce" Stretch="UniformToFill"  MinHeight="360" MinWidth="640" MaxHeight="720" MaxWidth="1280"/>
+            <TextBlock Name="timerText" Text="Start" FontSize="360" Height="auto" Width="auto"  HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" Foreground="Red" Visibility="Hidden"/>
+            <Image  Name="imgCapture"  Visibility="Visible" Stretch="UniformToFill" MinHeight="360" MinWidth="640" MaxHeight="720" MaxWidth="1280"/>
+        </Grid>
+        <!--<Grid Visibility="Hidden">
+            <airspace:AirspaceDecorator x:Name="playerWindow" AirspaceMode="Redirect" IsInputRedirectionEnabled="True" IsOutputRedirectionEnabled="True">
+                <wfi:WindowsFormsHost Height="720" Width="1280">
+                    <aforge:VideoSourcePlayer x:Name="player"/>
+                </wfi:WindowsFormsHost>
+            </airspace:AirspaceDecorator>
+            <TextBox Name="timerText" Text="Start" FontSize="360" Height="720" Width="1280" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Background="Transparent" BorderBrush="Transparent" Foreground="Red" Visibility="Hidden"/>
+            <Image  Name="imgCapture" Stretch="Fill" Height="720" Width="1280" Visibility="Visible"/>
+        </Grid>-->
+        <Grid Margin="0 10 0 10" Grid.Row="1" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!--<ComboBox x:Name="comboBox"
+                  Width="180"
+                  Height="21"
+                  Grid.Column="0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Bottom"
+                  DisplayMemberPath="Name"
+                  ItemsSource="{Binding VideoDevices}"
+                  SelectedItem="{Binding CurrentDevice}" />-->
+            <ComboBox Name="cb" Grid.Column="0" SelectionChanged="cb_SelectionChanged" Width="180" Height="30"></ComboBox>
+            <!--<Button Name="btnOpenCamera" Grid.Column="1" Click="btnOpenCamera_Click" Width="180" Height="30">開啟相機</Button>-->
+            <Button Name="btnCapture" Grid.Column="1" Content ="拍照" Click="btnCapture_Click"  Width="180" Height="30" Style="{StaticResource ROGBtnStyle1}"></Button>
+            <Button Name="btnRestart" Grid.Column="2" Content="重來" Click="btnRestart_Click"  Width="180" Height="30" Style="{StaticResource ROGBtnStyle1}" Focusable="False"></Button>
+        </Grid>
+    </Grid>
+</Window>
